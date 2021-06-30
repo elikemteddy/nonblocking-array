@@ -17,7 +17,8 @@ function map(array, callback) {
             newArray.push(result);
           })
           .catch((error) => {
-            reject(error);
+            callback(error);
+            return;
           });
       } else {
         resolve(newArray);
