@@ -29,4 +29,18 @@ function map(array, callback) {
   });
 }
 
-module.exports = { map };
+function forEach(array, callback) {
+  if (!Array.isArray(array))
+    reject(new TypeError("Invalid argument. Must be an array"));
+  function help(index) {
+    if (index < array.length) {
+      callback(array[index], index);
+    } else {
+      return;
+    }
+    setImmediate(help.bind(null, index + 1));
+  }
+  help(0);
+}
+
+module.exports = { map, forEach };
