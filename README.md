@@ -16,7 +16,7 @@ The functions are promised based and the callbacks can also be async functions.
 
 Import/require as follows
 
-```
+```js
 const array = require("nonblocking-array");
 ```
 
@@ -26,14 +26,14 @@ const array = require("nonblocking-array");
 
 Returns a new array with the results of the returned values of the callback function. Similar to `Array.prototype.map`.
 
-```
-const largeArray = [1,2,3,4,5]; //A large array that may block with regular Array.map
-(async ()=>{
-    const newArray = await array.map(largeArray, (element, index)=>{
-        //Do something with element
-        return element * 2;
-    });
-    console.log(newArray); //Do something with the result of the map function
+```js
+const largeArray = [1, 2, 3, 4, 5]; //A large array that may block with regular Array.map
+(async () => {
+  const newArray = await array.map(largeArray, (element, index) => {
+    //Do something with element
+    return element * 2;
+  });
+  console.log(newArray); //Do something with the result of the map function
 })();
 ```
 
@@ -55,18 +55,25 @@ array.forEach(largeArray, (currentItem, currentIndex)=> {
 The reduce function behaves the exact same way the Array.prototype.reduce does.
 "The reduce() method executes a reducer function (that you provide) on each element of the array, resulting in a single output value."
 
-```
-const reducedValue = await array.reduce(largeArray, (accumulator, currentItem, index)=> {
+```js
+const reducedValue = await array.reduce(
+  largeArray,
+  (accumulator, currentItem, index) => {
     return accumulator + currentItem;
-});
+  }
+);
 console.log(reducedValue);
 ```
 
 The reduce function complies with the Array.prototype.reduce specification `A value to use as the first argument to the first call of the callbackFn. If no initialValue is supplied, the first element in the array will be used as the initial accumulator value and skipped as currentValue. Calling reduce() on an empty array without an initialValue will throw a TypeError.`
 
-```
-const reducedValue = await array.reduce(largeArray, (accumulator, currentItem, index)=>{
+```js
+const reducedValue = await array.reduce(
+  largeArray,
+  (accumulator, currentItem, index) => {
     return accumulator + currentItem;
-}, 4); // 4 specified as initial value
+  },
+  4
+); // 4 specified as initial value
 console.log(reducedValue);
 ```
