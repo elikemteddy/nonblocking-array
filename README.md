@@ -44,9 +44,9 @@ Calls the callback function with each item and index of the array.
 
 Returns `undefined`
 
-```
-array.forEach(largeArray, (currentItem, currentIndex)=> {
-    console.log(`Current Item: ${currentItem}, Current Index: ${currentIndex}`);
+```js
+array.forEach(largeArray, (currentItem, currentIndex) => {
+  console.log(`Current Item: ${currentItem}, Current Index: ${currentIndex}`);
 });
 ```
 
