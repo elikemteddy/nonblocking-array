@@ -77,3 +77,16 @@ const reducedValue = await array.reduce(
 ); // 4 specified as initial value
 console.log(reducedValue);
 ```
+
+### filter
+
+The filter function behaves the exact same way the Array.prototype.filter does.
+"The filter returns a new array of elements in the old array that passed the test provided in the callback function"
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const filteredArray = await array.filter(largeArray, (element, index) => {
+  return element > 5;
+});
+console.log(filteredArray); // [6, 7, 8, 9]
+```

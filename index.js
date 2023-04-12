@@ -28,6 +28,29 @@ function map(array, callback, thisArg) {
   });
 }
 
+function filter(array, callback, thisArg) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(array))
+      reject(new TypeError("Invalid argument. Must be an array"));
+    const newArray = [];
+    function help(index) {
+      if (index < array.length) {
+        Promise.resolve(callback.call(thisArg, array[index], index, array))
+          .then((result) => {
+            if (result) newArray.push(array[index]);
+            setImmediate(help.bind(null, index + 1));
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      } else {
+        resolve(newArray);
+      }
+    }
+    help(0);
+  });
+}
+
 function forEach(array, callback, thisArg) {
   return new Promise((resolve, reject) => {
     if (!Array.isArray(array))
@@ -85,4 +108,4 @@ function reduce(array, callback, initialValue) {
   });
 }
 
-module.exports = { map, forEach, reduce };
+module.exports = { map, forEach, reduce, filter };
