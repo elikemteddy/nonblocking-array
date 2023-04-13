@@ -24,7 +24,7 @@
     "nonblocking array forEach",
     "nonblocking array filter"
   ],
-  "dependencies": {
+  "devDependencies": {
     "jest": "^29.5.0"
   }
 }
