@@ -2,7 +2,7 @@
 
 Provides nonblocking functions of various Array methods. Unlike the standard array methods that execute array iterations in its entirety in one cycle of the event loop, and may block the event loop on large arrays, these functions execute each iteration of the array in isolation (separate async functions) enabling the event loop to yield and handle other tasks while the large array operations/processing is in progress.
 
-These functions work in only Node environment for now. Browsers may be supported in later versions.
+Browsers are supported from v1.0.8 and above.
 
 ## Installation
 
