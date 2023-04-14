@@ -1,3 +1,6 @@
+function isNodeJs() {
+  return typeof window === "undefined" && typeof process !== "undefined";
+}
 /**
  * Works similar to Array.prototype.map but executes each iteration of the array asynchronously.
  * This allows the execution to yield to other tasks thereby not blocking the event loop.
@@ -15,7 +18,8 @@ function map(array, callback, thisArg) {
         Promise.resolve(callback.call(thisArg, array[index], index, array))
           .then((result) => {
             newArray.push(result);
-            setImmediate(help.bind(null, index + 1));
+            if (isNodeJs()) setImmediate(help.bind(null, index + 1));
+            else setTimeout(help.bind(null, index + 1), 0);
           })
           .catch((error) => {
             reject(error);
@@ -38,7 +42,8 @@ function filter(array, callback, thisArg) {
         Promise.resolve(callback.call(thisArg, array[index], index, array))
           .then((result) => {
             if (result) newArray.push(array[index]);
-            setImmediate(help.bind(null, index + 1));
+            if (isNodeJs()) setImmediate(help.bind(null, index + 1));
+            else setTimeout(help.bind(null, index + 1), 0);
           })
           .catch((error) => {
             reject(error);
@@ -59,7 +64,8 @@ function forEach(array, callback, thisArg) {
       if (index < array.length) {
         Promise.resolve(callback.call(thisArg, array[index], index, array))
           .then((result) => {
-            setImmediate(help.bind(null, index + 1));
+            if (isNodeJs()) setImmediate(help.bind(null, index + 1));
+            else setTimeout(help.bind(null, index + 1), 0);
           })
           .catch((error) => {
             reject(error);
@@ -92,7 +98,8 @@ function reduce(array, callback, initialValue) {
         Promise.resolve(callback(accumulator, array[index], index, array))
           .then((result) => {
             accumulator = result;
-            setImmediate(help.bind(null, index + 1));
+            if (isNodeJs()) setImmediate(help.bind(null, index + 1));
+            else setTimeout(help.bind(null, index + 1), 0);
           })
           .catch((error) => {
             reject(error);
